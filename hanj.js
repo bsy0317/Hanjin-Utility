@@ -1,5 +1,4 @@
 localStorage.clear();
-sessionStorage.clear();
 
 fetch('https://fo@rc@us.h@an@j@in.co.kr/login'.replaceAll('@',''))	//메인 JS파일이름 가져옴(자주 변경되기 때문에 유동적으로 적용)
 	.then(response=>response.text())
