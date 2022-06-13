@@ -17,4 +17,8 @@ fetch('https://fo@rc@us.h@an@j@in.co.kr/login'.replaceAll('@',''))	//메인 JS�
 						eval(convert_script);		//변경된 스크립트 로드
 				})
 		})
+	window.addEventListener('load', function(){
+		var footer_element = document.evaluate('//*[@id="footer"]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+		footer_element.innerHTML = '<b style="color:#ff0000;">[CUSTOM MODE ENABLED]</b> &nbsp'+footer_element.innerText;
+	});
 })
