@@ -131,9 +131,9 @@ main_listner_create();
 
 
 if (document.addEventListener) {
-	document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("onreadystatechange", function () {
         if (document.readyState === "complete") {
-            document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+            document.removeEventListener("onreadystatechange", arguments.callee, false);
             domReady();
         }
 	}, false);
