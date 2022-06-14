@@ -128,3 +128,22 @@ function main_listner_create(){
 }
 
 main_listner_create();
+
+
+if (document.addEventListener) {
+	document.addEventListener("DOMContentLoaded", function () {
+        if (document.readyState === "complete") {
+            document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+            domReady();
+        }
+	}, false);
+}
+function domReady () {
+	var footer_element = document.evaluate('//*[@id="footer"]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+	if(footer_element != null){
+      var footer_text = footer_element.innerText;
+    }
+	if(footer_element == null || footer_text.indexOf('CUSTOM MODE ENABLED') < 0){
+		window.location.reload(true);
+	}
+}
