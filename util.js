@@ -128,11 +128,3 @@ function main_listner_create(){
 }
 
 main_listner_create();
-
-window.addEventListener('afterprint', function(){
-  var footer_element = document.evaluate('//*[@id="footer"]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-  var footer_text = footer_element.innerText;
-  if(footer_text.indexOf('CUSTOM MODE ENABLED') < 0){
-    window.location.reload(true);
-  }
-})
