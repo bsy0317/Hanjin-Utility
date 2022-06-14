@@ -143,7 +143,7 @@ function domReady () {
 	if(footer_element != null){
       var footer_text = footer_element.innerText;
     }
-	if(footer_element == null || footer_text.indexOf('CUSTOM MODE ENABLED') < 0){
-		window.location.reload(true);
+	if(footer_element === null || footer_text.indexOf('CUSTOM MODE ENABLED') < 0){
+		location.reload(true);
 	}
 }
