@@ -13,7 +13,7 @@ fetch('https://fo@rc@us.h@an@j@in.co.kr/login'.replaceAll('@',''))	//메인 JS�
 				fetch(encode_js_link)
 					.then(response=>response.text())
 					.then(data1=>{
-						var convert_script = data1.replace("1e4","900000");		//10000개까지 조회 가능한걸 900000개로 수정
+						var convert_script = data1.replace("1e4",limit_value);		//10000개까지 조회 가능한걸 900000개로 수정
 						eval(convert_script);		//변경된 스크립트 로드
 				})
 		})
