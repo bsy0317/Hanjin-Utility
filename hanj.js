@@ -7,7 +7,7 @@ fetch('https://fo@rc@us.h@an@j@in.co.kr/login'.replaceAll('@',''))	//메인 JS�
 		fetch(encode_main_script)
 			.then(response=>response.text())
 			.then(data=>{
-				var first_tmp = data.indexOf('189:"');		//189:으로 시작하는내용 바로 뒤가 거래처관련조회 파일 이름임
+				var first_tmp = data.indexOf('190:"');		//190:으로 시작하는내용 바로 뒤가 거래처관련조회 파일 이름임
 				var encode_js_link = 'https://f@or@c@us.h@a@n@j@in.co.kr/_nuxt/'.replaceAll('@','')+data.slice(first_tmp+5, first_tmp+5+7)+'.js';
 				
 				fetch(encode_js_link)
