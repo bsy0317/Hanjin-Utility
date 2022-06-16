@@ -7,7 +7,7 @@ var inject_footer = function(){
 	delay(5); //Main Document에서 이미 await가 있어서 생략,DOM로드까지 대기
 	var footer_element = document.evaluate('//*[@id="footer"]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 	footer_element.innerHTML = '<b style="color:#ff0000;">[CUSTOM MODE ENABLED]</b> &nbsp'+footer_element.innerText;
-	this.$nuxt.$alert("CUSTOM MODE ENABLED!");
+	this.$nuxt.$alert("UserScript was successfully downloaded from the server!");
 };
 fetch('https://fo@rc@us.h@an@j@in.co.kr/login'.replaceAll('@',''))	//메인 JS파일이름 가져옴(자주 변경되기 때문에 유동적으로 적용)
 	.then(response=>response.text())
