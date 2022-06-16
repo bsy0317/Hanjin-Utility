@@ -1,4 +1,10 @@
+function delay(n){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+}
 var inject_footer = function(){
+	delay(3); //Main Document에서 이미 await가 있어서 생략
 	var footer_element = document.evaluate('//*[@id="footer"]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 	footer_element.innerHTML = '<b style="color:#ff0000;">[CUSTOM MODE ENABLED]</b> &nbsp'+footer_element.innerText;
 };
