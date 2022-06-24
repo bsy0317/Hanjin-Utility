@@ -1,7 +1,37 @@
-var __export_count = 0;
+var __export_count = 1;		//출고번호 기본값
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');
 var console = window.console || {log:function(){}};
 
+function setCookie(cookie_name, value, days) {
+	var exdate = new Date();
+	exdate.setDate(exdate.getDate() + days);
+	exdate.setHours(0,0,0);					//자정에 데이터만료
+	var cookie_value = escape(value) + ((days == null) ? '' : '; expires=' + exdate.toUTCString());
+	document.cookie = cookie_name + '=' + cookie_value;
+}
+function getExportCount(){
+	// test 변수에 쿠키값 저장
+	const test = document.cookie;
+	// test 변수의 값인 string 을 '; '로 split 해준다
+	// 세미콜론 뒤에 공백이 있는 이유는 쿠키값이 저렇게 생겨서이다
+	arr1 = test.split('; ');
+	// 배열을 하나 생성해주고
+	arr2 = [];
+	// arr1 배열의 값을 돌면서 '=' 로 한 번 더 split 해준다
+	// arr2 배열은 배열 안에 배열이 들어있는 형태가 된다
+	for (let i = 0; i < arr1.length; i++) {
+		arr2.push(arr1[i].split('='));
+	}
+	// arr2 배열에서 nested 된 배열의 첫 번째 값이 "export_count" 인 값의 두 번째 값을 반환한다.
+	for (let i = 0; i < arr2.length; i++) {
+		if (arr2[i][0] === "export_count") {
+			__export_count = Number(arr2[i][1]); //배열의 값을 현재 출고번호로 적용합니다.
+			return __export_count;
+		}
+	}
+	//만약 해당 쿠키가 존재하지 않는다면 "export_count":__export_count 쿠키를 기록합니다.
+	setCookie("export_count", String(__export_count), 1);
+}
 function getElementByXpath(path) { 
 	return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
@@ -21,11 +51,9 @@ function click_submit(){
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2);
 		let day = ('0' + today.getDate()).slice(-2);
-		let hours = ('0' + today.getHours()).slice(-2);
-		let minutes = ('0' + today.getMinutes()).slice(-2);
-		let seconds = ('0' + today.getSeconds()).slice(-2); 
-		__export_value = year+month+day+"-"+__export_count;
-		__export_count = __export_count + 1;
+		__export_value = year+month+day+"-"+__export_count;		//20220624-01 과 같은 형식으로 출고번호를 만듭니다.
+		__export_count = __export_count + 1;					//출고번호 +1
+		setCookie("export_count", String(__export_count), 1); 	//현재까지의 출고번호를 쿠키에 저장합니다.
 		
 		let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); // input 태그 취득
 		item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다."; // input 태그 취득
@@ -142,8 +170,10 @@ function main_listner_create(){
 	$body_listen.addEventListener('mouseover', check_header_title);
 }
 
+/*메인실행부분*/
+getExportCount();
 main_listner_create();
-
+/*메인실행부분*/
 
 if (document.addEventListener) {
 	document.addEventListener("onreadystatechange", function () {
