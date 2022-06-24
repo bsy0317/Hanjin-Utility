@@ -1,3 +1,4 @@
+var __export_count = 0;
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');
 var console = window.console || {log:function(){}};
 
@@ -16,15 +17,29 @@ function click_juso(){
 function click_submit(){
 	console.log("단건입력 모달 열림");
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2);
+		let day = ('0' + today.getDate()).slice(-2);
+		let hours = ('0' + today.getHours()).slice(-2);
+		let minutes = ('0' + today.getMinutes()).slice(-2);
+		let seconds = ('0' + today.getSeconds()).slice(-2); 
+		__export_value = year+month+day+"-"+__export_count;
+		__export_count = __export_count + 1;
+		
 		let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); // input 태그 취득
 		item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다."; // input 태그 취득
 		item_name_input.dispatchEvent(new Event('input'));
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선";
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선"; 				//내품명
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";      				//내품수량
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;			//출고번호
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";			//특이사항
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 	}
 }
 function number_autocopy(){
