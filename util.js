@@ -1,3 +1,4 @@
+var autoFill = true;
 var __export_count = 1;		//출고번호 기본값
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');
 var console = window.console || {log:function(){}};
@@ -8,8 +9,8 @@ function customerData(name, call, phone, postcode, address1, address2, sender){
 	this.call = call;
 	this.phone = phone;
 	this.postcode = postcode;
-	this.adress1 = address1;
-	this.adress2 = address2;
+	this.address1 = address1;
+	this.address2 = address2;
 	this.sender = sender;
 }
 
@@ -79,6 +80,53 @@ function click_submit(){
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
+		
+		/*let btn = document.createElement('button');
+		btn.classList.add('el-button','button-default','el-button--default','el-button--medium');
+		btn.textContent = '스택에서 꺼내기('+customerDataArray.length+'개 남음)';
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)
+		btn.addEventListener('click',function(event){
+			//출력자료 등록시 일전에 등록한 거래처 명단 순차 자동입력
+			if(autoFill && customerDataArray.length > 0){ //기능이 활성화된경우
+				let temp_data = customerDataArray.shift();
+				console.log(temp_data);
+				let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input').value=temp_data.postcode;
+				let juso1 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[1]/input').value=temp_data.address1;
+				let juso2 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[2]/input').value=temp_data.address2;
+				let name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/dl[1]/dd/div/div/input').value=temp_data.name;
+				let call = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').value=temp_data.call;
+				let phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[2]/dd/div/input').value=temp_data.phone;
+				if(temp_data.sender != "" && temp_data.sender != null){
+					let split_data = temp_data.sender.split('/'); // '/' 기준으로 자름(보내는이 이름/전화번호)
+					let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').value=split_data[0];
+					let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value=split_data[1];
+					sender_name.dispatchEvent(new Event('input'));
+					sender_phone.dispatchEvent(new Event('input'));
+				}
+				postcode.dispatchEvent(new Event('input'));
+				juso1.dispatchEvent(new Event('input'));
+				juso2.dispatchEvent(new Event('input'));
+				name.dispatchEvent(new Event('input'));
+				call.dispatchEvent(new Event('input'));
+				phone.dispatchEvent(new Event('input'));
+				
+			}
+		});*/
+		
+		let reset_sender_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]');
+		if(reset_sender_btn == null){
+			let btn2 = document.createElement('button');
+			btn2.classList.add('el-button','button-default','el-button--default','el-button--medium');
+			btn2.textContent = '발송인 초기화';
+			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn2)
+			btn2.addEventListener('click',function(event){
+				let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').value="속초웰빙반건조";
+				let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value="01053821766";
+				sender_name.dispatchEvent(new Event('input'));
+				sender_phone.dispatchEvent(new Event('input'));
+			});
+		}
+		
 	}
 }
 function number_autocopy(){
@@ -103,6 +151,8 @@ function check_header_title(){
 		phone_num_tab_listen()
 		new_rowbtn_listen()
 		//submit_juso_enter()
+	}else{
+		content_header_title = getElementByXpath('/html');
 	}
 }
 
@@ -127,8 +177,8 @@ function data_regist_autoinput(){
 		$submit_input_listen.addEventListener('click', click_submit);
 		reset_btn_listen = getElementByXpath('/html/body/div[2]/div/div[3]/button');
 		reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[2]');
-		reset_btn_listen.addEventListener('click', click_submit);
-		reset_btn_listen2.addEventListener('click', click_submit);
+		if(reset_btn_listen != null) reset_btn_listen.addEventListener('click', click_submit);
+		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', click_submit);
 	}
 }
 function phone_num_autocopy(){
@@ -165,7 +215,8 @@ function new_rowbtn_listen(){
 /*거래처 관리->주소입력->데이터로 따로 저장*/
 function submit_juso_enter(){
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
-		let address_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr/td[13]/div/div/div[2]/div/div/div[2]/div/section/div[3]/div[2]/div[2]/div[3]/button');
+		customerDataArray.length=0;
+		let address_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/button[2]');
 		if(address_input != null){
 			address_input.addEventListener('click',function(event){
 				let name = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr/td[7]/div/div/input').value;
@@ -180,6 +231,7 @@ function submit_juso_enter(){
 		}
 	}
 }
+
 function main_listner_create(){
 	const $body_listen = getElementByXpath('/html/body');
 	$body_listen.addEventListener('mouseover', check_header_title);
