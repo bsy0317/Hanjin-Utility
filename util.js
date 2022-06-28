@@ -1,6 +1,17 @@
 var __export_count = 1;		//출고번호 기본값
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');
 var console = window.console || {log:function(){}};
+var customerDataArray = new Array();
+
+function customerData(name, call, phone, postcode, address1, address2, sender){
+	this.name = name;
+	this.call = call;
+	this.phone = phone;
+	this.postcode = postcode;
+	this.adress1 = address1;
+	this.adress2 = address2;
+	this.sender = sender;
+}
 
 function setCookie(cookie_name, value, days) {
 	var exdate = new Date();
@@ -151,16 +162,20 @@ function new_rowbtn_listen(){
 		}
 	}
 }
+/*거래처 관리->주소입력->데이터로 따로 저장*/
 function submit_juso_enter(){
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
-		let address_input = getElementByXpath('//*[@id="rtAddrDetail"]');
+		let address_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr/td[13]/div/div/div[2]/div/div/div[2]/div/section/div[3]/div[2]/div[2]/div[3]/button');
 		if(address_input != null){
-			address_input.addEventListener('keyup',function(event){
-				if(event.keyCode == 13){
-					event.preventDefault();
-					let juso_submit_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr/td[13]/div/div/div[2]/div/div/div[2]/div/section/div[3]/div[2]/div[2]/div[3]/button');
-					juso_submit_btn.dispatchEvent(new KeyboardEvent('keydown', {key: 'e'}));
-				}
+			address_input.addEventListener('click',function(event){
+				let name = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr/td[7]/div/div/input').value;
+				let call = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[9]/div/div/input').value;
+				let phone = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[11]/div/div/input').value;
+				let postcode = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[13]/div/div/div[1]/input').value;
+				let juso1 = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[14]/div/div/div[1]/input').value;
+				let juso2 = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[14]/div/div/div[2]/input').value;
+				let sender = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[16]/div/div/input').value;
+				customerDataArray.push(new customerData(name, call, phone, postcode, juso1, juso2, sender));
 			});
 		}
 	}
