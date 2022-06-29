@@ -118,6 +118,13 @@ function click_submit(){
 						sender_phone.value=split_data[1];
 						sender_name.dispatchEvent(new Event('input'));
 						sender_phone.dispatchEvent(new Event('input'));
+					}else{
+						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
+						sender_name.value="속초웰빙반건조";
+						let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
+						sender_phone.value="01053821766";
+						sender_name.dispatchEvent(new Event('input'));
+						sender_phone.dispatchEvent(new Event('input'));
 					}
 					postcode.dispatchEvent(new Event('input'));
 					juso1.dispatchEvent(new Event('input'));
