@@ -134,19 +134,6 @@ function click_submit(){
 					call.dispatchEvent(new Event('input'));
 					phone.dispatchEvent(new Event('input'));
 				}
-				let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); // input 태그 취득
-				item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다."; // input 태그 취득
-				item_name_input.dispatchEvent(new Event('input'));
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선"; 				//내품명
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";      				//내품수량
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;			//출고번호
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";			//특이사항
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
-				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 			});
 		}
 		
@@ -179,12 +166,10 @@ function new_row_autofocus(){
 	let toprow_namw_input = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[7]/div/div/input');
 	toprow_namw_input.focus();
 }
-function check_header_title(){
+function check_header_title(){ //마우스가 움직일때 마다 갱신
 	content_header_title = getElementByXpath('/html/body/div[1]/div/div/main/div/section/header/h1');
 	if(content_header_title != null){
-		console.log("타이틀 >> " + content_header_title);
 		phone_num_autocopy()
-		//client_juso_autofocus()
 		data_regist_autoinput()
 		management_number_listen()
 		phone_num_tab_listen()
@@ -214,8 +199,8 @@ function data_regist_autoinput(){
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
 		const $submit_input_listen = getElementByXpath('/html/body/div/div/div/main/div/section/div[1]/div[1]/button');
 		$submit_input_listen.addEventListener('click', click_submit);
-		reset_btn_listen = getElementByXpath('/html/body/div[2]/div/div[3]/button');
-		reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[2]');
+		let reset_btn_listen = getElementByXpath('/html/body/div[2]/div/div[3]/button');
+		let reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[2]');
 		if(reset_btn_listen != null) reset_btn_listen.addEventListener('click', click_submit);
 		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', click_submit);
 	}
