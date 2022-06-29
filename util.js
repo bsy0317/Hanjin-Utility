@@ -86,12 +86,13 @@ function click_submit(){
 		if(stack_pop_btn == null){						 //버튼이 지
 		let btn = document.createElement('button');
 			btn.classList.add('el-button','button-default','el-button--default','el-button--medium');	//스택에서 불러오기 버튼에 class 추가
-			btn.textContent = customerDataArray.length <=0 ? '알수없음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')';
+			btn.textContent = customerDataArray.length <=0 ? '비어있음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')';
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)
 			btn.addEventListener('click',function(event){
 				//출력자료 등록시 일전에 등록한 거래처 명단 순차 자동입력
 				if(autoFill && customerDataArray.length > 0){ //기능이 활성화된경우
 					let temp_data = customerDataArray.pop();
+					btn.textContent = customerDataArray.length <=0 ? '비어있음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')'; //스택 버튼에 반영
 					
 					let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input');
 					postcode.value=temp_data.postcode;
@@ -132,12 +133,11 @@ function click_submit(){
 					name.dispatchEvent(new Event('input'));
 					call.dispatchEvent(new Event('input'));
 					phone.dispatchEvent(new Event('input'));
-					
 				}
 			});
 		}
 		
-		let reset_sender_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]');
+		let reset_sender_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[3]');
 		if(reset_sender_btn == null){
 			let btn2 = document.createElement('button');
 			btn2.classList.add('el-button','button-default','el-button--default','el-button--medium');
