@@ -81,37 +81,54 @@ function click_submit(){
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 		
-		/*let btn = document.createElement('button');
-		btn.classList.add('el-button','button-default','el-button--default','el-button--medium');
-		btn.textContent = '스택에서 꺼내기('+customerDataArray.length+'개 남음)';
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)
-		btn.addEventListener('click',function(event){
-			//출력자료 등록시 일전에 등록한 거래처 명단 순차 자동입력
-			if(autoFill && customerDataArray.length > 0){ //기능이 활성화된경우
-				let temp_data = customerDataArray.shift();
-				console.log(temp_data);
-				let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input').value=temp_data.postcode;
-				let juso1 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[1]/input').value=temp_data.address1;
-				let juso2 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[2]/input').value=temp_data.address2;
-				let name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/dl[1]/dd/div/div/input').value=temp_data.name;
-				let call = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').value=temp_data.call;
-				let phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[2]/dd/div/input').value=temp_data.phone;
-				if(temp_data.sender != "" && temp_data.sender != null){
-					let split_data = temp_data.sender.split('/'); // '/' 기준으로 자름(보내는이 이름/전화번호)
-					let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').value=split_data[0];
-					let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value=split_data[1];
-					sender_name.dispatchEvent(new Event('input'));
-					sender_phone.dispatchEvent(new Event('input'));
+		let stack_pop_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]'); //스택에서 불러오기 버튼 Element
+		if(stack_pop_btn != null) stack_pop_btn.remove(); stack_pop_btn=null;//만약 존재한다면 지움(그래야 현재 남은 사람이 보임)
+		if(stack_pop_btn == null){						 //버튼이 지
+		let btn = document.createElement('button');
+			btn.classList.add('el-button','button-default','el-button--default','el-button--medium');	//스택에서 불러오기 버튼에 class 추가
+			btn.textContent = customerDataArray.length <=0 ? '알수없음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')';
+			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)
+			btn.addEventListener('click',function(event){
+				//출력자료 등록시 일전에 등록한 거래처 명단 순차 자동입력
+				if(autoFill && customerDataArray.length > 0){ //기능이 활성화된경우
+					let temp_data = customerDataArray.pop();
+					
+					let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input');
+					postcode.value=temp_data.postcode;
+					
+					let juso1 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[1]/input');
+					juso1.value=temp_data.address1;
+					
+					let juso2 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[2]/input');
+					juso2.value=temp_data.address2;
+					
+					let name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/dl[1]/dd/div/div/input')
+					name.value=temp_data.name;
+					
+					let call = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input');
+					call.value=temp_data.call;
+					
+					let phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[2]/dd/div/input');
+					phone.value=temp_data.phone;
+					if(temp_data.sender != "" && temp_data.sender != null){
+						let split_data = temp_data.sender.split(','); // 메모1칸의 ',' 기준으로 자름(보내는이 이름,전화번호)
+						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
+						sender_name.value=split_data[0];
+						let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
+						sender_phone.value=split_data[1];
+						sender_name.dispatchEvent(new Event('input'));
+						sender_phone.dispatchEvent(new Event('input'));
+					}
+					postcode.dispatchEvent(new Event('input'));
+					juso1.dispatchEvent(new Event('input'));
+					juso2.dispatchEvent(new Event('input'));
+					name.dispatchEvent(new Event('input'));
+					call.dispatchEvent(new Event('input'));
+					phone.dispatchEvent(new Event('input'));
+					
 				}
-				postcode.dispatchEvent(new Event('input'));
-				juso1.dispatchEvent(new Event('input'));
-				juso2.dispatchEvent(new Event('input'));
-				name.dispatchEvent(new Event('input'));
-				call.dispatchEvent(new Event('input'));
-				phone.dispatchEvent(new Event('input'));
-				
-			}
-		});*/
+			});
+		}
 		
 		let reset_sender_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]');
 		if(reset_sender_btn == null){
@@ -120,8 +137,10 @@ function click_submit(){
 			btn2.textContent = '발송인 초기화';
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn2)
 			btn2.addEventListener('click',function(event){
-				let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').value="속초웰빙반건조";
-				let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value="01053821766";
+				let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
+				sender_name.value="속초웰빙반건조";
+				let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
+				sender_phone.value="01053821766";
 				sender_name.dispatchEvent(new Event('input'));
 				sender_phone.dispatchEvent(new Event('input'));
 			});
@@ -150,7 +169,7 @@ function check_header_title(){
 		management_number_listen()
 		phone_num_tab_listen()
 		new_rowbtn_listen()
-		//submit_juso_enter()
+		submit_juso_enter()
 	}else{
 		content_header_title = getElementByXpath('/html');
 	}
@@ -215,18 +234,21 @@ function new_rowbtn_listen(){
 /*거래처 관리->주소입력->데이터로 따로 저장*/
 function submit_juso_enter(){
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
-		customerDataArray.length=0;
 		let address_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/button[2]');
 		if(address_input != null){
 			address_input.addEventListener('click',function(event){
-				let name = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr/td[7]/div/div/input').value;
-				let call = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[9]/div/div/input').value;
-				let phone = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[11]/div/div/input').value;
-				let postcode = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[13]/div/div/div[1]/input').value;
-				let juso1 = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[14]/div/div/div[1]/input').value;
-				let juso2 = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[14]/div/div/div[2]/input').value;
-				let sender = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[16]/div/div/input').value;
-				customerDataArray.push(new customerData(name, call, phone, postcode, juso1, juso2, sender));
+				let table_body=document.querySelector('#__layout > div > main > div > section > div:nth-child(3) > div.content-result-table.grid-fixed > div.el-table.el-table--fit.el-table--fluid-height.el-table--scrollable-x.el-table--enable-row-hover.el-table--enable-row-transition.el-table--medium > div.el-table__body-wrapper.is-scrolling-left > table > tbody').children;
+				customerDataArray.length=0;			//이전에 저장된 정보 리셋
+				for(var i=0; i<table_body.length; i++){
+					let table_row=table_body[i].getElementsByClassName('el-input__inner');
+					let temp_array=new Array();
+					for(var j=0; j<table_row.length; j++){
+						let table_col=table_row[j].value;
+						temp_array.push(table_col);
+					}
+					customerDataArray.push(new customerData(temp_array[1], temp_array[3], temp_array[5], temp_array[7], temp_array[8], temp_array[9], temp_array[11]));
+				}
+				//customerDataArray.push(new customerData(name, call, phone, postcode, juso1, juso2, sender));
 			});
 		}
 	}
