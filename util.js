@@ -57,7 +57,6 @@ function click_juso(){
 	}
 }
 function click_submit(){
-	console.log("단건입력 모달 열림");
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
 		let today = new Date();
 		let year = today.getFullYear();
@@ -92,7 +91,7 @@ function click_submit(){
 				//출력자료 등록시 일전에 등록한 거래처 명단 순차 자동입력
 				if(autoFill && customerDataArray.length > 0){ //기능이 활성화된경우
 					let temp_data = customerDataArray.pop();
-					btn.textContent = customerDataArray.length <=0 ? '비어있음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[customerDataArray.length-1]['name']+')'; //스택 버튼에 반영
+					btn.textContent = customerDataArray.length <=0 ? '비어있음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')'; //스택 버튼에 반영
 					
 					let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input');
 					postcode.value=temp_data.postcode;
@@ -152,7 +151,10 @@ function click_submit(){
 				sender_phone.dispatchEvent(new Event('input'));
 			});
 		}
-		
+		let reset_btn_listen = getElementByXpath('/html/body/div[2]/div/div[3]/button');
+		let reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[2]');
+		if(reset_btn_listen != null) reset_btn_listen.addEventListener('click', click_submit);
+		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', click_submit);
 	}
 }
 function number_autocopy(){
@@ -199,10 +201,6 @@ function data_regist_autoinput(){
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
 		const $submit_input_listen = getElementByXpath('/html/body/div/div/div/main/div/section/div[1]/div[1]/button');
 		$submit_input_listen.addEventListener('click', click_submit);
-		let reset_btn_listen = getElementByXpath('/html/body/div[2]/div/div[3]/button');
-		let reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[2]');
-		if(reset_btn_listen != null) reset_btn_listen.addEventListener('click', click_submit);
-		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', click_submit);
 	}
 }
 function phone_num_autocopy(){
