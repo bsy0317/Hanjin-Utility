@@ -81,9 +81,8 @@ function click_submit(){
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 		
 		let stack_pop_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]'); //스택에서 불러오기 버튼 Element
-		if(stack_pop_btn != null) stack_pop_btn.remove(); stack_pop_btn=null;//만약 존재한다면 지움(그래야 현재 남은 사람이 보임)
 		if(stack_pop_btn == null){						 //버튼이 지
-		let btn = document.createElement('button');
+			let btn = document.createElement('button');
 			btn.classList.add('el-button','button-default','el-button--default','el-button--medium');	//스택에서 불러오기 버튼에 class 추가
 			btn.textContent = customerDataArray.length <=0 ? '비어있음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')';
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)
@@ -132,6 +131,8 @@ function click_submit(){
 					name.dispatchEvent(new Event('input'));
 					call.dispatchEvent(new Event('input'));
 					phone.dispatchEvent(new Event('input'));
+					
+					btn.textContent = customerDataArray.length <=0 ? '비어있음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')'; //스택 버튼에 반영
 				}
 			});
 		}
