@@ -13,11 +13,12 @@ fetch('https://fo@rc@us.h@an@j@in.co.kr/login'.replaceAll('@',''))	//메인 JS�
 	.then(response=>response.text())
 	.then(codedata=>{
 		let loc = codedata.lastIndexOf('<link rel="preload" href="/_nuxt/');
-		var encode_main_script_original = 'https://fo@rc@us.ha@nj@in.co.kr/_nuxt/'.replaceAll('@','')+codedata.slice(loc+33,loc+33+7)+'.js';	//메인 Index파일에 있는 암호화된 JS의 번호가 담긴 스크립트 주소
-		let loc2 = codedata.indexOf('<link rel="preload" href="/_nuxt/');	//가장 첫번째에 기록되어 있어 indexOf로 위치를 찾음
-		var encode_main_script_main = 'https://fo@rc@us.ha@nj@in.co.kr/_nuxt/'.replaceAll('@','')+codedata.slice(loc2+33,loc2+33+7)+'.js';	//위에서 구한 메인JS파일 CDN주소
+		var menu_name_to_encode_number = 'https://fo@rc@us.ha@nj@in.co.kr/_nuxt/'.replaceAll('@','')+codedata.slice(loc+33,loc+33+7)+'.js';	//메인 Index파일에 있는 암호화된 JS의 번호가 담긴 스크립트 주소
 		
-		fetch(encode_main_script_original)
+		let loc2 = codedata.indexOf('<link rel="preload" href="/_nuxt/');	//가장 첫번째에 기록되어 있어 indexOf로 위치를 찾음
+		var encode_number_match_script_name = 'https://fo@rc@us.ha@nj@in.co.kr/_nuxt/'.replaceAll('@','')+codedata.slice(loc2+33,loc2+33+7)+'.js';	//위에서 구한 암호화된 숫자가 매칭되는 JS파일 CDN주소
+		
+		fetch(menu_name_to_encode_number)		//메뉴이름이 암호화된 스크립트 이름과 매칭되는 고유번호를 담고있음
 			.then(response=>response.text())
 			.then(data=>{
 				let loc1 = data.indexOf('{path:"/info/accounts",component:function(){return Object(X.m)(Promise.all(')+1+75;			//위 스크립트에서 [n.e(0),n.e(1)...] 형식의 배열 첫번째 위치(맨 마지막이 거래처관리 스크립트 번호 때문에 필요)
@@ -25,10 +26,10 @@ fetch('https://fo@rc@us.h@an@j@in.co.kr/login'.replaceAll('@',''))	//메인 JS�
 				var arr_code = data.slice(loc1, loc2);		//배열만 추출
 				arr_code = arr_code.slice(arr_code.lastIndexOf('n.e(')+4, -2); //맨 마지막 배열 요소에 있음
 			
-				fetch(encode_main_script_main)
+				fetch(encode_number_match_script_name)	//암호화된 스크립트 이름과 매칭되는 고유번호를 이용하여 암호화된 스크립트 주소를 가져옴
 					.then(response=>response.text())
 					.then(data=>{
-						var first_tmp = data.indexOf(arr_code+':"');		//191:으로 시작하는내용 바로 뒤가 거래처관련조회 파일 이름임
+						var first_tmp = data.indexOf(arr_code+':"');		//arr_code으로 시작하는내용 바로 뒤가 거래처관련조회 파일 이름임
 						var encode_js_link = 'https://f@or@c@us.h@a@n@j@in.co.kr/_nuxt/'.replaceAll('@','')+data.slice(first_tmp+5, first_tmp+5+7)+'.js';
 						
 						fetch(encode_js_link)
