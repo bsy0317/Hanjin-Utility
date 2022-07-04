@@ -81,10 +81,11 @@ function click_submit(){
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 		
 		let stack_pop_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]'); //스택에서 불러오기 버튼 Element
+		stack_pop_btn.remove();
+		stack_pop_btn = null;
 		if(stack_pop_btn == null){						 //버튼이 지
 			let btn = document.createElement('button');
 			btn.classList.add('el-button','button-default','el-button--default','el-button--medium');	//스택에서 불러오기 버튼에 class 추가
-			btn.textContent = customerDataArray.length <=0 ? '비어있음':'스택에서 꺼내기('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+')';
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)
 			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 ('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+') 등록'; //스택 버튼에 반영
 			btn.addEventListener('click',function(event){
@@ -157,6 +158,16 @@ function click_submit(){
 		let reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[1]');
 		if(reset_btn_listen != null) reset_btn_listen.addEventListener('click', click_submit);
 		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', click_submit);
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선"; 				//내품명
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";      				//내품수량
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;			//출고번호
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";			//특이사항
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 	}
 }
 function number_autocopy(){
