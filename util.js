@@ -81,18 +81,16 @@ function click_submit(){
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 		
 		let stack_pop_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]'); //스택에서 불러오기 버튼 Element
-		stack_pop_btn.remove();
-		stack_pop_btn = null;
-		if(stack_pop_btn == null){						 //버튼이 지
-			let btn = document.createElement('button');
+		if(stack_pop_btn == null){
+			btn = document.createElement('button');
 			btn.classList.add('el-button','button-default','el-button--default','el-button--medium');	//스택에서 불러오기 버튼에 class 추가
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)
-			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 ('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+') 등록'; //스택 버튼에 반영
+			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록'; //스택 버튼에 반영
 			btn.addEventListener('click',function(event){
 				//출력자료 등록시 일전에 등록한 거래처 명단 순차 자동입력
 				if(autoFill && customerDataArray.length > 0){ //기능이 활성화된경우
 					let temp_data = customerDataArray.pop();
-					btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 ('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+') 등록'; //스택 버튼에 반영
+					btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록'; //스택 버튼에 반영
 					
 					let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input');
 					postcode.value=temp_data.postcode;
@@ -111,7 +109,7 @@ function click_submit(){
 					
 					let phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[2]/dd/div/input');
 					phone.value=temp_data.phone;
-					if(temp_data.sender != "" && temp_data.sender != null){
+					if(temp_data.sender != ","){
 						let split_data = temp_data.sender.split(','); // 메모1칸의 ',' 기준으로 자름(보내는이 이름,전화번호)
 						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
 						sender_name.value=split_data[0];
@@ -134,9 +132,11 @@ function click_submit(){
 					call.dispatchEvent(new Event('input'));
 					phone.dispatchEvent(new Event('input'));
 					
-					btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 ('+customerDataArray.length+'개 남음/'+customerDataArray[0]['name']+') 등록'; //스택 버튼에 반영
+					btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록'; //스택 버튼에 반영
 				}
 			});
+		}else{
+			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록'; //스택 버튼에 반영
 		}
 		
 		let reset_sender_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[3]');
@@ -146,28 +146,35 @@ function click_submit(){
 			btn2.textContent = '발송인 초기화';
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn2)
 			btn2.addEventListener('click',function(event){
+				/* 발송인 입력 */
 				let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
 				sender_name.value="속초웰빙반건조";
 				let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
 				sender_phone.value="01053821766";
 				sender_name.dispatchEvent(new Event('input'));
 				sender_phone.dispatchEvent(new Event('input'));
+				/* 발송인 입력 종료 */
+				
+				/* 내품명 입력 Start */
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input').value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다."
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선"; 				//내품명
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";      				//내품수량
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;			//출고번호
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";			//특이사항
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
+				getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input').dispatchEvent(new Event('input'));
+				/* 내품명 입력 End */
 			});
 		}
 		let reset_btn_listen = getElementByXpath('/html/body/div[2]/div/div[3]/button');
 		let reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[1]');
 		if(reset_btn_listen != null) reset_btn_listen.addEventListener('click', click_submit);
 		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', click_submit);
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선"; 				//내품명
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";      				//내품수량
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;			//출고번호
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";			//특이사항
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));
 	}
 }
 function number_autocopy(){
@@ -184,14 +191,28 @@ function new_row_autofocus(){
 function check_header_title(){ //마우스가 움직일때 마다 갱신
 	content_header_title = getElementByXpath('/html/body/div[1]/div/div/main/div/section/header/h1');
 	if(content_header_title != null){
-		phone_num_autocopy()
-		data_regist_autoinput()
-		management_number_listen()
-		phone_num_tab_listen()
-		new_rowbtn_listen()
-		submit_juso_enter()
+		phone_num_autocopy();
+		data_regist_autoinput();
+		management_number_listen();
+		phone_num_tab_listen();
+		Table_Edit_listen();
+		new_rowbtn_listen();
+		submit_juso_enter();
 	}else{
 		content_header_title = getElementByXpath('/html');
+	}
+}
+
+function Table_Edit_listen(){
+	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
+		var header1 = getElementByXpath('/html/body/div/div/div/main/div/section/div[2]/div[2]/div[1]/div[2]/table/thead/tr/th[16]/div'); //메모1 -> 보낸이 이름
+		var header2 = getElementByXpath('/html/body/div/div/div/main/div/section/div[2]/div[2]/div[1]/div[2]/table/thead/tr/th[17]/div'); //메모2 -> 보낸이 번호
+		if(header1 != null && header2 != null){
+			header1.innerText = "발송인 이름";
+			header2.innerText = "발송인 번호";
+			header1.dispatchEvent(new Event('input'));
+			header2.dispatchEvent(new Event('input'));
+		}
 	}
 }
 
@@ -253,7 +274,7 @@ function submit_juso_enter(){
 		let address_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/button[2]');
 		if(address_input != null){
 			address_input.addEventListener('click',function(event){
-				let table_body=document.querySelector('#__layout > div > main > div > section > div:nth-child(3) > div.content-result-table.grid-fixed > div.el-table.el-table--fit.el-table--fluid-height.el-table--scrollable-x.el-table--enable-row-hover.el-table--enable-row-transition.el-table--medium > div.el-table__body-wrapper.is-scrolling-left > table > tbody').children;
+				let table_body=document.evaluate('//*[@id="__layout"]/div/main/div/section/div[2]/div[2]/div[1]/div[3]/table/tbody', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.children;
 				customerDataArray.length=0;			//이전에 저장된 정보 리셋
 				for(var i=0; i<table_body.length; i++){
 					let table_row=table_body[i].getElementsByClassName('el-input__inner');
@@ -262,7 +283,7 @@ function submit_juso_enter(){
 						let table_col=table_row[j].value;
 						temp_array.push(table_col);
 					}
-					customerDataArray.push(new customerData(temp_array[1], temp_array[3], temp_array[5], temp_array[7], temp_array[8], temp_array[9], temp_array[11]));
+					customerDataArray.push(new customerData(temp_array[1], temp_array[3], temp_array[5], temp_array[7], temp_array[8], temp_array[9], temp_array[11]+","+temp_array[12]));
 				}
 				//customerDataArray.push(new customerData(name, call, phone, postcode, juso1, juso2, sender));
 			});
