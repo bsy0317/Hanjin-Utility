@@ -356,7 +356,7 @@ function main_listner_create(){		//function 'check_header_title' 이벤트 등�
 /*스크립트가 실행중임을 보이는 코드*/
 function domReady() {
 	document.addEventListener("readystatechange", () => {
-		if (document.readyState == 'readyState:complete') {		//요소가 모두 로딩된경우
+		if (document.readyState == 'complete') {		//요소가 모두 로딩된경우
 			setTimeout(function () {	//1초간 대기 후 실행
 				var footer_element = document.evaluate('//*[@id="footer"]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 				if(footer_element != null){
