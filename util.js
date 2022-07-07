@@ -79,6 +79,25 @@ function click_juso(){
 }
 /*END*/
 
+/*출력자료등록에서 내품명을 자동으로 입력해주는 함수*/
+function writeProduct(){
+		let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); // 품목명 input Element 취득
+		item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다."; 	// 품목명 입력
+		item_name_input.dispatchEvent(new Event('input'));			// 품목명 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선";				//내품명 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";					//내품수량 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;		//출고번호 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";	//특이사항 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();				//고객전화번호에 포커스를 맞춤
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));		//내품명 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));		//내품수량 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));	//고객전화번호 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//출고번호 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
+		__export_count = __export_count + 1; 						//출고번호 +1
+}
+/*END*/
+
 /*출력자료 등록시 필요한 내용 자동으로 입력*/
 function click_submit(){
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
@@ -166,7 +185,7 @@ function click_submit(){
 		if(reset_sender_btn == null){	//위에서 XPath가 null인경우 -> 아직 버튼이 안만들어짐
 			let btn2 = document.createElement('button');
 			btn2.classList.add('el-button','button-default','el-button--default','el-button--medium');
-			btn2.textContent = '발송인 초기화';
+			btn2.textContent = '내품명,발송인 자동입력';
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn2)
 			btn2.addEventListener('click',function(event){
 				/* 발송인 입력 */
@@ -190,24 +209,6 @@ function click_submit(){
 		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', writeProduct);
 		/*END*/
 	}
-}
-/*END*/
-
-/*출력자료등록에서 내품명을 자동으로 입력해주는 함수*/
-function writeProduct(){
-		let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); // 품목명 input Element 취득
-		item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다."; 	// 품목명 입력
-		item_name_input.dispatchEvent(new Event('input'));			// 품목명 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선";				//내품명 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";					//내품수량 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;		//출고번호 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";	//특이사항 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();				//고객전화번호에 포커스를 맞춤
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));		//내품명 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));		//내품수량 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));	//고객전화번호 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//출고번호 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
 }
 /*END*/
 
