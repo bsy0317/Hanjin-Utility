@@ -155,6 +155,8 @@ function click_submit(){
 						sender_phone.value=split_data[1];
 						sender_name.dispatchEvent(new Event('input'));
 						sender_phone.dispatchEvent(new Event('input'));
+						let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); 	// 품목명 input Element 취득
+						item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다.<br>발송인:"+split_data[0]+"/"+split_data[1]; 	// 품목명에 발송인 기재
 					}else{		//발송인 데이터가 없는 경우, 기본값으로 리셋(없으면 이전 송하인 값이 계속 유지됨)
 						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
 						sender_name.value="속초웰빙반건조";
@@ -174,10 +176,12 @@ function click_submit(){
 					/*END*/
 				}
 				writeProduct(); //내품명 자동입력 함수 호출
+				__export_count = __export_count + 1;  //출고번호 카운트
 			});
 		}else{
 			//고객정보배열이 비어있는경우 '비어있음' 버튼으로, 비어있지는 않지만 아직 클릭하기 전이라면 정상출력
 			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록';
+			__export_count = __export_count + 1;  //출고번호 카운트
 		}
 		
 		//발송인 수동 초기화 버튼 Element
