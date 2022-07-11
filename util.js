@@ -88,12 +88,16 @@ function writeProduct(){
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";					//내품수량 input Element 취득
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;		//출고번호 input Element 취득
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";	//특이사항 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').value="속초웰빙반건조"			//발송인 이름 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value="01053821766";		//발송인 번호 input Element 취득
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();				//고객전화번호에 포커스를 맞춤
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));		//내품명 입력 이벤트 발생
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));		//내품수량 입력 이벤트 발생
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));	//고객전화번호 입력 이벤트 발생
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//출고번호 입력 이벤트 발생
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 이름 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 번호 입력 이벤트 발생
 		__export_count = __export_count + 1; 						//출고번호 +1
 }
 /*END*/
@@ -156,7 +160,7 @@ function click_submit(){
 						sender_name.dispatchEvent(new Event('input'));
 						sender_phone.dispatchEvent(new Event('input'));
 						let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); 	// 품목명 input Element 취득
-						item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다.<br>발송인:"+split_data[0]+"/"+split_data[1]; 	// 품목명에 발송인 기재
+						item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다. 발송인:"+split_data[0]+"/"+split_data[1]; 	// 품목명에 발송인 기재
 						item_name_input.dispatchEvent(new Event('input'));
 					}else{		//발송인 데이터가 없는 경우, 기본값으로 리셋(없으면 이전 송하인 값이 계속 유지됨)
 						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
@@ -182,7 +186,6 @@ function click_submit(){
 		}else{
 			//고객정보배열이 비어있는경우 '비어있음' 버튼으로, 비어있지는 않지만 아직 클릭하기 전이라면 정상출력
 			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록';
-			__export_count = __export_count + 1;  //출고번호 카운트
 		}
 		
 		//발송인 수동 초기화 버튼 Element
