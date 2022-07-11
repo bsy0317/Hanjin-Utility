@@ -157,6 +157,7 @@ function click_submit(){
 						sender_phone.dispatchEvent(new Event('input'));
 						let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); 	// 품목명 input Element 취득
 						item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다.<br>발송인:"+split_data[0]+"/"+split_data[1]; 	// 품목명에 발송인 기재
+						item_name_input.dispatchEvent(new Event('input'));
 					}else{		//발송인 데이터가 없는 경우, 기본값으로 리셋(없으면 이전 송하인 값이 계속 유지됨)
 						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
 						sender_name.value="속초웰빙반건조";
