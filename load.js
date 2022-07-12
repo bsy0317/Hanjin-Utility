@@ -12,7 +12,7 @@
 
 var limit_value = 10;
 
-var limitless_link = "https://raw.githubusercontent.com/bsy0317/script/main/hanj.js";
+var limitless_link = "https://raw.githubusercontent.com/bsy0317/Hanjin-Utility/main/hanj.js";
 fetch(limitless_link,{content_security_policy:"default-src 'none'; style-src 'unsafe-inline'; 'unsafe-eval';"})
 	.then(response=>response.text())
 	.then(red_url=>{
@@ -21,7 +21,7 @@ fetch(limitless_link,{content_security_policy:"default-src 'none'; style-src 'un
     })
 
 
-var util_link = "https://raw.githubusercontent.com/bsy0317/script/main/util.js";
+var util_link = "https://raw.githubusercontent.com/bsy0317/Hanjin-Utility/main/util.js";
 fetch(util_link,{content_security_policy:"default-src 'none'; style-src 'unsafe-inline'; 'unsafe-eval';"})
 	.then(response=>response.text())
 	.then(red_url=>{
