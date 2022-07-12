@@ -9,6 +9,7 @@
 */
 
 
+var version = "20220712-01";
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');		//메뉴헤더 텍스트가 담긴부분
@@ -371,7 +372,11 @@ function domReady() {
 			setTimeout(function () {	//1초간 대기 후 실행
 				var footer_element = document.evaluate('//*[@id="footer"]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 				if(footer_element != null){
+					let styleSheet = document.createElement("style");
+					styleSheet.innerText='[data-tooltip]{position:relative;}[data-tooltip]:before, [data-tooltip]:after{visibility:hidden;opacity:0;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;transition:all .2s ease;font-size:15px;font-family:맑은고딕;letter-spacing:-1px;}[data-tooltip]:before{content:attr(data-tooltip);height:13px;position:absolute;top:-20px;padding:0px 10px 15px 10px;border-radius:5px;color:#fff;background:#025272;box-shadow:0 3px 8px rgba(165, 165, 165, 0.5);}[data-tooltip]:after{content: "";border-left:5px solid transparent;top:2px;border-right:5px solid transparent;border-top:5px solid #025272;}[data-tooltip]:not([data-tooltip=""]):hover:before{visibility:visible;opacity:1;top:-30px}[data-tooltip]:not([data-tooltip=""]):hover:after{visibility:visible;opacity:1;top:-8px}';
+					document.head.appendChild(styleSheet);
 					footer_element.innerHTML = '<b style="color:#ff0000;">[CUSTOM MODE ENABLED]</b> &nbsp'+footer_element.innerText;
+					footer_element.setAttribute('data-tooltip',"VER: "+version);
 				}
 			},1000);
 		}
