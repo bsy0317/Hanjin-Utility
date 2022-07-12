@@ -2,7 +2,7 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220711-01
+* @version		: 20220712-01
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
@@ -98,7 +98,6 @@ function writeProduct(){
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 이름 입력 이벤트 발생
 		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 번호 입력 이벤트 발생
-		__export_count = __export_count + 1; 						//출고번호 +1
 }
 /*END*/
 
@@ -110,7 +109,6 @@ function click_submit(){
 		let month = ('0' + (today.getMonth() + 1)).slice(-2);
 		let day = ('0' + today.getDate()).slice(-2);
 		__export_value = year+month+day+"-"+__export_count;		//20220624-01 과 같은 형식으로 출고번호를 만듭니다.
-		__export_count = __export_count + 1;					//출고번호 +1
 		setCookie("export_count", String(__export_count), 1); 	//현재까지의 출고번호를 쿠키에 저장합니다.
 		
 		writeProduct(); //내품명 자동입력 함수 호출
@@ -181,7 +179,7 @@ function click_submit(){
 					/*END*/
 				}
 				writeProduct(); //내품명 자동입력 함수 호출
-				__export_count = __export_count + 1;  //출고번호 카운트
+				//__export_count = __export_count + 1;  //출고번호 카운트
 			});
 		}else{
 			//고객정보배열이 비어있는경우 '비어있음' 버튼으로, 비어있지는 않지만 아직 클릭하기 전이라면 정상출력
@@ -208,13 +206,17 @@ function click_submit(){
 			});
 		}
 		
-		/*  저장->확인 버튼을 클릭시 고객정보와 발송인을 자동으로 채우도록 이벤트를 등록함
-			근데 제대로 동작을 안함ㅜㅜㅠㅜㅠ / 2022-07-06 버그확인
-			TODO : 출력자료 저장->확인시 자동으로 입력되는 기능 버그 수정하기*/
-		let reset_btn_listen = getElementByXpath('/html/body/div[2]/div/div[3]/button');
-		let reset_btn_listen2 = getElementByXpath('/html/body/div[2]/div/div[3]/button[1]');
-		if(reset_btn_listen != null) reset_btn_listen.addEventListener('click', writeProduct);
-		if(reset_btn_listen2 != null) reset_btn_listen2.addEventListener('click', writeProduct);
+		/*  저장->확인 버튼을 클릭시 고객정보와 발송인을 자동으로 채우도록 이벤트를 등록함*/
+		let confirm_btn_listen = getElementByXpath('/html/body/div[4]/div/div[3]/button[2]');				//저장 확인버튼 Element
+		let cancle_btn_listen = getElementByXpath('/html/body/div[4]/div/div[3]/button[1]');			//저장 취소버튼 Element
+		if(confirm_btn_listen != null) confirm_btn_listen.addEventListener('click', writeProduct);
+		if(cancle_btn_listen != null) cancle_btn_listen.addEventListener('click', writeProduct);
+		if(confirm_btn_listen != null) confirm_btn_listen.addEventListener('click', function(event){
+			__export_count = __export_count + 1;	//출고번호 +1
+		});
+		if(cancle_btn_listen != null) cancle_btn_listen.addEventListener('click', function(event){
+			__export_count = __export_count + 1;	//출고번호 +1
+		});
 		/*END*/
 	}
 }
