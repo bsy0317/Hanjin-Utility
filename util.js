@@ -2,14 +2,14 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220712-02
+* @version		: 20220712-03
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "20220712-02";				//스크립트 버전정보
+var version = "20220712-03";				//스크립트 버전정보
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');		//메뉴헤더 텍스트가 담긴부분
@@ -120,7 +120,9 @@ function click_submit(){
 			btn.classList.add('el-button','button-default','el-button--default','el-button--medium');						//고객 불러오기 버튼에 style class 추가->디자인적용
 			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)	//인쇄설정 옆에 적용
 			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록'; //만든 버튼 객체에 Text 설정
-			btn.addEventListener('click',function(event){		//만든 버튼 객체에 클릭시 발생하는 이벤트 할당
+			btn.addEventListener('click',function(event){				//만든 버튼 객체에 클릭시 발생하는 이벤트 할당
+				writeProduct(); //내품명 자동입력 함수 호출
+				__export_value = year+month+day+"-"+__export_count;		//20220624-01 과 같은 형식으로 출고번호를 만듭니다.
 				/*고객 불러오기 버튼 클릭시 일전에 등록한 거래처 명단 순차적으로 자동입력*/
 				if(autoFill && customerDataArray.length > 0){ 	//고객명 자동입력유무가 True이고 고객데이터배열이 비어있지 않을경우
 					let temp_data = customerDataArray.pop();	//고객데이터 배열에서 인출(스택)
@@ -179,7 +181,6 @@ function click_submit(){
 					phone.dispatchEvent(new Event('input'));
 					/*END*/
 				}
-				writeProduct(); //내품명 자동입력 함수 호출
 				//__export_count = __export_count + 1;  //출고번호 카운트
 			});
 		}else{
