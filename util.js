@@ -2,14 +2,14 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220712-03
+* @version		: 20220712-04
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "20220712-03";				//스크립트 버전정보
+var version = "20220712-04";				//스크립트 버전정보
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');		//메뉴헤더 텍스트가 담긴부분
@@ -208,16 +208,15 @@ function click_submit(){
 			});
 		}
 		
-		/*  저장->확인 버튼을 클릭시 고객정보와 발송인을 자동으로 채우도록 이벤트를 등록함*/
-		let confirm_btn_listen = getElementByXpath('/html/body/div[4]/div/div[3]/button[2]');				//저장 확인버튼 Element
-		let cancle_btn_listen = getElementByXpath('/html/body/div[4]/div/div[3]/button[1]');			//저장 취소버튼 Element
-		if(confirm_btn_listen != null) confirm_btn_listen.addEventListener('click', writeProduct);
-		if(cancle_btn_listen != null) cancle_btn_listen.addEventListener('click', writeProduct);
+		/* 저장->확인 버튼을 클릭시 고객정보와 발송인을 자동으로 채우도록 이벤트를 등록함*/
+		let confirm_btn_listen = document.querySelector("body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(2)");				//저장 확인버튼 Element
+		let cancle_btn_listen = document.querySelector("body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(1)");			//저장 취소버튼 Element
 		if(confirm_btn_listen != null) confirm_btn_listen.addEventListener('click', function(event){
 			__export_count = __export_count + 1;	//출고번호 +1
+			writeProduct();
 		});
 		if(cancle_btn_listen != null) cancle_btn_listen.addEventListener('click', function(event){
-			__export_count = __export_count + 1;	//출고번호 +1
+			writeProduct();
 		});
 		/*END*/
 	}
