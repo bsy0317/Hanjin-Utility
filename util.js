@@ -2,16 +2,17 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220712-04
+* @version		: 20220714-01
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "20220712-04";				//스크립트 버전정보
+var version = "202207114-01";				//스크립트 버전정보
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
+var __export_value = "";					//출고번호 Message
 var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');		//메뉴헤더 텍스트가 담긴부분
 var customerDataArray = new Array();		//거래처관리에 등록시 담기는 고객정보 배열(거래처관리->저장->배열)
 
