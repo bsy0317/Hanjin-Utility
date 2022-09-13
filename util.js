@@ -2,18 +2,18 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220714-01
+* @version		: 20220913-01
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "202207114-01";				//스크립트 버전정보
+var version = "20220913-01";				//스크립트 버전정보
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
 var __export_value = "";					//출고번호 Message
-var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/header/h1');		//메뉴헤더 텍스트가 담긴부분
+var content_header_title = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[1]/header/h1');		//메뉴헤더 텍스트가 담긴부분
 var customerDataArray = new Array();		//거래처관리에 등록시 담기는 고객정보 배열(거래처관리->저장->배열)
 
 /*고객정보 구조체*/
@@ -83,23 +83,23 @@ function click_juso(){
 
 /*출력자료등록에서 내품명을 자동으로 입력해주는 함수*/
 function writeProduct(){
-		let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); // 품목명 input Element 취득
+		let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); // 품목명 input Element 취득
 		item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다."; 	// 품목명 입력
 		item_name_input.dispatchEvent(new Event('input'));			// 품목명 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선";				//내품명 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";					//내품수량 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;		//출고번호 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";	//특이사항 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').value="속초웰빙반건조"			//발송인 이름 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value="01053821766";		//발송인 번호 input Element 취득
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();				//고객전화번호에 포커스를 맞춤
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));		//내품명 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));		//내품수량 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));	//고객전화번호 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//출고번호 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 이름 입력 이벤트 발생
-		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 번호 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').value="반건조생선";				//내품명 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').value="1";					//내품수량 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value= __export_value;		//출고번호 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').value= "냉동보관이 필요한 상품입니다.";	//특이사항 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').value="속초웰빙반건조"			//발송인 이름 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').value="01053821766";		//발송인 번호 input Element 취득
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').focus();				//고객전화번호에 포커스를 맞춤
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[1]/input').dispatchEvent(new Event('input'));		//내품명 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[2]/dl/dd/div/div[3]/input').dispatchEvent(new Event('input'));		//내품수량 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));	//고객전화번호 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//출고번호 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[3]/dl[2]/dd/div/input').dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 이름 입력 이벤트 발생
+		getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input').dispatchEvent(new Event('input'));		//발송인 번호 입력 이벤트 발생
 }
 /*END*/
 
@@ -115,11 +115,11 @@ function click_submit(){
 		
 		writeProduct(); //내품명 자동입력 함수 호출
 		
-		let stack_pop_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[2]'); 	//고객 불러오기 버튼 Element
+		let stack_pop_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[3]/div/div[1]/button[2]'); 	//고객 불러오기 버튼 Element
 		if(stack_pop_btn == null){								//고객 불러오기 버튼이 없을 경우 -> 아직 버튼이 안만들어짐
 			btn = document.createElement('button');				//버튼 객체 생성
 			btn.classList.add('el-button','button-default','el-button--default','el-button--medium');						//고객 불러오기 버튼에 style class 추가->디자인적용
-			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn)	//인쇄설정 옆에 적용
+			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[3]/div/div[1]').appendChild(btn)	//인쇄설정 옆에 적용
 			btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록'; //만든 버튼 객체에 Text 설정
 			btn.addEventListener('click',function(event){				//만든 버튼 객체에 클릭시 발생하는 이벤트 할당
 				writeProduct(); //내품명 자동입력 함수 호출
@@ -130,44 +130,44 @@ function click_submit(){
 					btn.textContent = customerDataArray.length <=0 ? '비어있음':'방금전 입력한 고객('+customerDataArray.length+'개 남음'+') 등록'; 	//줄어든 고객 수를 버튼에 반영
 					
 					/*고객우편번호 Element*/
-					let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input');
+					let postcode = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[1]/div[1]/input');
 					postcode.value=temp_data.postcode;
 					
 					/*주소1 Element*/
-					let juso1 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[1]/input');
+					let juso1 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[1]/input');
 					juso1.value=temp_data.address1;
 					
 					/*주소2 Element*/
-					let juso2 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[2]/input');
+					let juso2 = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/dl/dd/div/div[2]/div[2]/input');
 					juso2.value=temp_data.address2;
 					
 					/*고객이름 Element*/
-					let name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/dl[1]/dd/div/div/input')
+					let name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/dl[1]/dd/div/div/input')
 					name.value=temp_data.name;
 					
 					/*고객일반전화 Element*/
-					let call = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input');
+					let call = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[1]/dd/div/div/input');
 					call.value=temp_data.call;
 					
 					/*고객휴대전화번호 Element*/
-					let phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[2]/dd/div/input');
+					let phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[2]/div[2]/div/div[1]/div[3]/dl[2]/dd/div/input');
 					phone.value=temp_data.phone;
 					
 					if(temp_data.sender != ","){						//발송인 데이터가 존재하는경우
 						let split_data = temp_data.sender.split(','); 	// 메모1(발송자)칸의 ',' 기준으로 자름(보내는이 이름[0],전화번호[1])
-						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');		//송하인 input Element
+						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');		//송하인 input Element
 						sender_name.value=split_data[0];
-						let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');	//송하인전화번호 input Element
+						let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');	//송하인전화번호 input Element
 						sender_phone.value=split_data[1];
 						sender_name.dispatchEvent(new Event('input'));
 						sender_phone.dispatchEvent(new Event('input'));
-						let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); 	// 품목명 input Element 취득
+						let item_name_input = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[4]/div[2]/div/div/div[1]/dl[1]/dd/div/input'); 	// 품목명 input Element 취득
 						item_name_input.value="반건조생선,건어물 냉동보관필수 당일배송 부탁드립니다. 발송인:"+split_data[0]+"/"+split_data[1]; 	// 품목명에 발송인 기재
 						item_name_input.dispatchEvent(new Event('input'));
 					}else{		//발송인 데이터가 없는 경우, 기본값으로 리셋(없으면 이전 송하인 값이 계속 유지됨)
-						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
+						let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
 						sender_name.value="속초웰빙반건조";
-						let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
+						let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
 						sender_phone.value="01053821766";
 						sender_name.dispatchEvent(new Event('input'));
 						sender_phone.dispatchEvent(new Event('input'));
@@ -190,17 +190,17 @@ function click_submit(){
 		}
 		
 		//발송인 수동 초기화 버튼 Element
-		let reset_sender_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]/button[3]');
+		let reset_sender_btn = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[3]/div/div[1]/button[3]');
 		if(reset_sender_btn == null){	//위에서 XPath가 null인경우 -> 아직 버튼이 안만들어짐
 			let btn2 = document.createElement('button');
 			btn2.classList.add('el-button','button-default','el-button--default','el-button--medium');
 			btn2.textContent = '내품명,발송인 자동입력';
-			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[3]/div/div[1]').appendChild(btn2)
+			getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[3]/div/div[1]').appendChild(btn2)
 			btn2.addEventListener('click',function(event){
 				/* 발송인 입력 */
-				let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
+				let sender_name = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[2]/dl[1]/dd/div/div/input');
 				sender_name.value="속초웰빙반건조";
-				let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[6]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
+				let sender_phone = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div/div/div[3]/dl[1]/dd/div/div/input');
 				sender_phone.value="01053821766";
 				sender_name.dispatchEvent(new Event('input'));
 				sender_phone.dispatchEvent(new Event('input'));
@@ -247,7 +247,7 @@ function new_row_autofocus(){
 /*메뉴헤더 텍스트를 주기적으로 가져오는 함수와, 지속적인 호출이 필요한 함수를 관리(마우스가 브라우저 내에서 움직일때마다 호출됨)*/
 /*각 이벤트 등록함수마다 check_header_title가 지정된 내용과 틀리면 이벤트가 등록되지 않기 때문에 지속적으로 호출하여 등록되도록 해야함*/
 function check_header_title(){
-	content_header_title = getElementByXpath('/html/body/div[1]/div/div/main/div/section/header/h1');
+	content_header_title = getElementByXpath('/html/body/div/div/div/main/div/section/div[1]/header/h1');
 	if(content_header_title == null){							//메뉴헤더 텍스트 Element가 null객체이면 오류가 발생하니 if문으로 분기
 		content_header_title = getElementByXpath('/html');		//Element를 임시할당하여 오류없앰
 	}else{														//content_header_title이 null이 아닌경우->정상적인 페이지인경우
@@ -320,7 +320,7 @@ function submit_juso_enter(){
 /* 각 함수별 EventListner 선언부분*/
 function data_regist_autoinput(){		//function 'click_submit' 이벤트 등록용 함수
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
-		let submit_input_listen = getElementByXpath('/html/body/div/div/div/main/div/section/div[1]/div[1]/button');	//단건입력 버튼 Element
+		let submit_input_listen = getElementByXpath('//*[@id="__layout"]/div/main/div/section/div[1]/div[1]/div[1]/button');	//단건입력 버튼 Element
 		submit_input_listen.addEventListener('click', click_submit);	//버튼 클릭시에 'click_submit' 함수 호출
 	}
 }
