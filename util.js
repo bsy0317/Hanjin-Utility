@@ -2,18 +2,18 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220913-02
+* @version		: 20220914-01
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "20220913-02";				//스크립트 버전정보
+var version = "20220914-01";				//스크립트 버전정보
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
 var __export_value = "";					//출고번호 Message
-var content_header_title = getElementByXpath('/html/body/div/div/div/main/div/section/header/h1');		//메뉴헤더 텍스트가 담긴부분
+var content_header_title = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[1]/header/h1/text()');		//메뉴헤더 텍스트가 담긴부분
 var customerDataArray = new Array();		//거래처관리에 등록시 담기는 고객정보 배열(거래처관리->저장->배열)
 
 /*고객정보 구조체*/
@@ -247,7 +247,7 @@ function new_row_autofocus(){
 /*메뉴헤더 텍스트를 주기적으로 가져오는 함수와, 지속적인 호출이 필요한 함수를 관리(마우스가 브라우저 내에서 움직일때마다 호출됨)*/
 /*각 이벤트 등록함수마다 check_header_title가 지정된 내용과 틀리면 이벤트가 등록되지 않기 때문에 지속적으로 호출하여 등록되도록 해야함*/
 function check_header_title(){
-	content_header_title = getElementByXpath('/html/body/div/div/div/main/div/section/header/h1');
+	content_header_title = getElementByXpath('/html/body/div[1]/div/div/main/div/section/div[1]/header/h1/text()');
 	if(content_header_title == null){							//메뉴헤더 텍스트 Element가 null객체이면 오류가 발생하니 if문으로 분기
 		content_header_title = getElementByXpath('/html');		//Element를 임시할당하여 오류없앰
 	}else{														//content_header_title이 null이 아닌경우->정상적인 페이지인경우
