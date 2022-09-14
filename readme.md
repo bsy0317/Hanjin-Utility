@@ -10,14 +10,6 @@
 ```
 </div>
 
-<div align="center">
-    
-```
-😢 This project is no longer maintained from 2022.07.15.  
-이 프로젝트는 2022년07월15일 이후로 더 이상 유지 관리되지 않습니다.
-```
-
-</div>
 
 ## 🛠️ nFocus Utility 기능 및 사용법
 
