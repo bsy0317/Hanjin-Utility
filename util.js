@@ -426,4 +426,4 @@ function main(){
 
 main(); //코드 실행
 
-await background_run();	//백그라운드에서 버전체크 및 업데이트 알림
+background_run();	//백그라운드에서 버전체크 및 업데이트 알림
