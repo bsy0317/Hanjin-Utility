@@ -398,23 +398,23 @@ function domReady() {
 /*END*/
 
 //백그라운드에서 버전체크 및 업데이트 알림
-async function background_run(){
-	while(true){
-		await update_check();
-		await sleep(10);	//10초마다 실행
-	}
-}
+//async function background_run(){
+//	while(true){
+//		await update_check();
+//		await sleep(10);	//10초마다 실행
+//	}
+//}
 
 /*서버에서 업데이트를 체크하는 함수*/
-async function update_check(){
-	let update_check_url = 'https://raw.githubusercontent.com/bsy0317/Hanjin-Utility/main/util.js';
-	let update_check_version = await fetch(update_check_url).then(response => response.text()).then(text => text.match(/var version = "(.*?)";/)[1]);
-	if(version != update_check_version && version_check_ignore != true){ //버전이 다른경우&&업데이트 무시가 아닌경우
-		this.$nuxt.$alert("'한진 유틸리티' 프로그램의 업데이트가 존재합니다.",'Update Notice');
-		this.$nuxt.$alert("브라우저를 재시작하면 변경사항이 적용됩니다.",'Update Notice');
-		version_check_ignore = true;	//업데이트 무시
-	}
-}
+//async function update_check(){
+//	let update_check_url = 'https://raw.githubusercontent.com/bsy0317/Hanjin-Utility/main/util.js';
+//	let update_check_version = await fetch(update_check_url).then(response => response.text()).then(text => text.match(/var version = "(.*?)";/)[1]);
+//	if(version != update_check_version && version_check_ignore != true){ //버전이 다른경우&&업데이트 무시가 아닌경우
+//		this.$nuxt.$alert("'한진 유틸리티' 프로그램의 업데이트가 존재합니다.",'Update Notice');
+//		this.$nuxt.$alert("브라우저를 재시작하면 변경사항이 적용됩니다.",'Update Notice');
+//		version_check_ignore = true;	//업데이트 무시
+//	}
+//}
 /*END*/
 
 /*메인함수*/
@@ -426,4 +426,4 @@ function main(){
 
 main(); //코드 실행
 
-background_run();	//백그라운드에서 버전체크 및 업데이트 알림
+//background_run();	//백그라운드에서 버전체크 및 업데이트 알림
