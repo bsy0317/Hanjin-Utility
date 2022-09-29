@@ -113,7 +113,7 @@ function writeProduct(){
 /*출력자료 등록시 필요한 내용 자동으로 입력*/
 async function click_submit(){
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
-		await sleep(2);		//모달이 로딩될 때 까지 대기함
+		await sleep(1);		//모달이 로딩될 때 까지 대기함
 		/*고객우편번호 Element*/
 		let postcode = document.querySelector('div > div.table-vertical > div:nth-child(1) > dl > dd > div > div.control-address-wrap__zipcode > div.el-input.el-input--medium > input');
 		
