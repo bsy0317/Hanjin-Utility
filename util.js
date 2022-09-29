@@ -2,14 +2,14 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220929-01
+* @version		: 20220929-02
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "20220929-01";				//스크립트 버전정보
+var version = "20220929-02";				//스크립트 버전정보
 var version_check_ignore = false;			//업데이트 확인 무시
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
@@ -374,7 +374,7 @@ function new_rowbtn_listen(){		//function 'new_row_autofocus' 이벤트 등록�
 }
 
 function main_listner_create(){		//function 'check_header_title' 이벤트 등록용 함수 (마우스가 움직일때마다 호출)
-	let body_listen = document.querySelector('#__layout');
+	let body_listen = document.querySelector('html');
 	body_listen.addEventListener('mouseover', check_header_title);	//마우스가 움직일때 호출
 }
 
