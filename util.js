@@ -2,14 +2,14 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220929-03
+* @version		: 20220930-01
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "20220929-03";				//스크립트 버전정보
+var version = "20220930-01";				//스크립트 버전정보
 var version_check_ignore = false;			//업데이트 확인 무시
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
@@ -80,7 +80,7 @@ function sleep(sec) {
 function click_juso(){
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
 		console.log("juso.go.kr 모달 열림");
-		let juso_input = document.querySelector('table > tbody > tr > td.el-table_1_column_13.table-form-td.label-required.el-table__cell > div > div > div.lh_normal > div > div > div.el-dialog__body > div > div > fieldset > input');
+		let juso_input = document.querySelector('table > tbody > tr > td > div > div > div.lh_normal > div > div > div.el-dialog__body > div > div > fieldset > input');
 		if(juso_input != null){
 			juso_input.focus();
 		}
@@ -239,9 +239,9 @@ async function click_submit(){
 /*거래처등록시 전화번호(일반전화)칸에 입력되는 내용을 자동으로 휴대폰번호로 복사*/
 function number_autocopy(){
 	//전화번호 input Element
-	let local_num_input = document.querySelector('table > tbody > tr > td.el-table_1_column_9.table-form-td.label-required.el-table__cell > div > div > input');
+	let local_num_input = document.querySelectorAll('table > tbody > tr > td > div > div > input')[3];
 	//휴대폰번호 input Element
-	let phone_num_input = document.querySelector('table > tbody > tr > td.el-table_1_column_11.table-form-td.el-table__cell > div > div > input');
+	let phone_num_input = document.querySelectorAll('table > tbody > tr > td > div > div > input')[5];
 	phone_num_input.value = local_num_input.value;
 	phone_num_input.dispatchEvent(new Event('input')); //입력이벤트 발생
 	
@@ -251,7 +251,7 @@ function number_autocopy(){
 /*신규행 추가시 '상호/이름'input 에 자동으로 포커스를 맞춤*/
 function new_row_autofocus(){
 	//최상단 '상호/이름'input Element
-	let toprow_namw_input = document.querySelector('table > tbody > tr > td.el-table_1_column_7.table-form-td.label-required.el-table__cell > div > div > input');
+	let toprow_namw_input = document.querySelectorAll('table > tbody > tr > td > div > div > input')[1];
 	toprow_namw_input.focus();
 }
 /*END*/
@@ -277,8 +277,8 @@ function check_header_title(){
 /*거래처관리 등록 Table에서 메모1, 메모2를 보낸이 이름, 번호로 바꾸는 함수*/
 function Table_Edit_listen(){
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
-		var header1 = document.querySelector('#__layout > div > main > div > section > div.resize-wrapper > div.content-container.resizable > div.content-result-table.grid-fixed > div.el-table.el-table--fit.el-table--scrollable-x.el-table--enable-row-hover.el-table--enable-row-transition.el-table--medium > div.el-table__header-wrapper > table > thead > tr > th.el-table_1_column_16.table-form-td.is-leaf.el-table__cell > div'); //메모1 th Element
-		var header2 = document.querySelector('#__layout > div > main > div > section > div.resize-wrapper > div.content-container.resizable > div.content-result-table.grid-fixed > div.el-table.el-table--fit.el-table--scrollable-x.el-table--enable-row-hover.el-table--enable-row-transition.el-table--medium > div.el-table__header-wrapper > table > thead > tr > th.el-table_1_column_17.table-form-td.is-leaf.el-table__cell > div'); //메모2 th Element
+		var header1 = document.querySelectorAll('table > thead > tr > th > div')[15]; //메모1 th Element
+		var header2 = document.querySelectorAll('table > thead > tr > th > div')[16]; //메모2 th Element
 		if(header1 != null && header2 != null){			//거래처관리 등록 테이블이 보인다면
 			header1.innerText = "발송인 이름";				//메모1->발송인 이름
 			header2.innerText = "발송인 번호";				//메모2->발송인 번호
@@ -293,7 +293,7 @@ function Table_Edit_listen(){
 function management_number_listen(){
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
 		//관리번호 input Element
-		var management_number_input = document.querySelector('table > tbody > tr > td.el-table_1_column_6.table-form-td.el-table__cell > div > div > input');
+		var management_number_input = document.querySelectorAll('table > tbody > tr > td > div > div > input')[0];
 		if(management_number_input != null){
 			let today = new Date();
 			let year = today.getFullYear();
@@ -340,7 +340,7 @@ function data_regist_autoinput(){		//function 'click_submit' 이벤트 등록용
 function phone_num_autocopy(){			//function 'number_autocopy' 이벤트 등록용 함수
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
 		//전화번호 Element
-		let local_num_input = document.querySelector('table > tbody > tr:nth-child(1) > td.el-table_1_column_9.table-form-td.label-required.el-table__cell > div > div > input');
+		let local_num_input = document.querySelectorAll('table > tbody > tr > td > div > div > input')[3];
 		if(local_num_input != null){
 			local_num_input.addEventListener('input', number_autocopy);	//키보드로 입력시에 이벤트 호출
 		}
@@ -349,13 +349,13 @@ function phone_num_autocopy(){			//function 'number_autocopy' 이벤트 등록�
 
 function phone_num_tab_listen(){		//휴대폰번호 Element에서 Tab 입력시 자동으로 주소입력 창 열림
 	if(content_header_title.innerText.indexOf('거래처 관리') != -1){
-		let phone_num_input = document.querySelector('table > tbody > tr > td.el-table_1_column_11.table-form-td.el-table__cell > div > div > input');
+		let phone_num_input = document.querySelectorAll('table > tbody > tr > td > div > div > input')[5];
 		if(phone_num_input != null){
 			phone_num_input.addEventListener('keydown',function(event){
 				if(event.keyCode == 9){		//Tab 키코드
 					event.preventDefault();	//이전에 있던 키 입력 이벤트 삭제
 					//주소검색 버튼 Element
-					let juso_input_listen = document.querySelector('table > tbody > tr:nth-child(1) > td.el-table_1_column_13.table-form-td.label-required.el-table__cell > div > div > div.lh_normal > button');
+					let juso_input_listen = document.querySelector('table > tbody > tr:nth-child(1) > td > div > div > div.lh_normal > button');
 					juso_input_listen.click();	//주소검색 버튼 클릭
 					click_juso();				//주소입력에 포커스 맞춰주는 함수 호출
 				}
