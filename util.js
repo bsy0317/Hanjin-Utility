@@ -2,14 +2,14 @@
 * @description	: 택배사에 송장을 등록할때 불편한 점을 보완한 스크립트입니다.
 * @filename		: util.js
 * @author		: 배서연(talk@kakao.one)
-* @version		: 20220930-01
+* @version		: 20221005-01
 * @since		: 20220605-01
 * @git			: https://github.com/bsy0317/script/blob/main/util.js
 * @loader		: https://github.com/bsy0317/script/blob/main/load.js
 */
 
 
-var version = "20220930-01";				//스크립트 버전정보
+var version = "20221005-01";				//스크립트 버전정보
 var version_check_ignore = false;			//업데이트 확인 무시
 var autoFill = true;						//고객명 자동입력유무 (true=활성화/false=비활성화)
 var __export_count = 1;						//출고번호 기본값
@@ -95,18 +95,18 @@ function writeProduct(){
 		item_name_input.dispatchEvent(new Event('input'));			// 품목명 입력 이벤트 발생
 		
 		document.querySelector('div > div > div:nth-child(2) > dl > dd > div > div.control-products-1.el-input.el-input--medium > input').value="반건조생선";	//내품명 input Element 취득
-		document.querySelector('div > div > div:nth-child(2) > dl > dd > div > div.control-products-3.el-input.el-input--medium > input').value="1";		//내품수량 input Element 취득
-		document.querySelector('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input').value= __export_value;		//출고번호 input Element 취득
-		document.querySelector('div > div > div:nth-child(3) > dl:nth-child(2) > dd > div > input').value= "냉동보관이 필요한 상품입니다.";	//특이사항 input Element 취득
-		document.querySelector('div > div > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input').value="속초웰빙반건조"			//발송인 이름 input Element 취득
-		document.querySelector('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input').value="01053821766";		//발송인 번호 input Element 취득
+		document.querySelector('div > div > div:nth-child(2) > dl > dd > div > div.control-products-3.el-input.el-input--medium > input').value="1";		 //내품수량 input Element 취득
+		document.querySelectorAll('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input')[4].value= __export_value;						 //출고번호 input Element 취득
+		document.querySelectorAll('div > div > div:nth-child(3) > dl:nth-child(2) > dd > div > input')[2].value= "냉동보관이 필요한 상품입니다.";					//특이사항 input Element 취득
+		document.querySelectorAll('div > div > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input')[1].value="속초웰빙반건조"							//발송인 이름 input Element 취득
+		document.querySelectorAll('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input')[0].value="01053821766";						//발송인 번호 input Element 취득
 		document.querySelector('div > div > div:nth-child(2) > dl > dd > div > div.control-products-1.el-input.el-input--medium > input').dispatchEvent(new Event('input'));		//내품명 입력 이벤트 발생
 		document.querySelector('div > div > div:nth-child(2) > dl > dd > div > div.control-products-3.el-input.el-input--medium > input').dispatchEvent(new Event('input'));		//내품수량 입력 이벤트 발생
-		document.querySelector('div > div.table-vertical > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input').dispatchEvent(new Event('input'));	//고객전화번호 입력 이벤트 발생
-		document.querySelector('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input').dispatchEvent(new Event('input'));		//출고번호 입력 이벤트 발생
-		document.querySelector('div > div > div:nth-child(3) > dl:nth-child(2) > dd > div > input').dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
-		document.querySelector('div > div > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input').dispatchEvent(new Event('input'));		//발송인 이름 입력 이벤트 발생
-		document.querySelector('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input').dispatchEvent(new Event('input'));		//발송인 번호 입력 이벤트 발생
+		document.querySelectorAll('div > div.table-vertical > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input')[1].dispatchEvent(new Event('input'));					//고객전화번호 입력 이벤트 발생
+		document.querySelectorAll('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input')[4].dispatchEvent(new Event('input'));		//출고번호 입력 이벤트 발생
+		document.querySelectorAll('div > div > div:nth-child(3) > dl:nth-child(2) > dd > div > input')[2].dispatchEvent(new Event('input'));			//특이사항 입력 이벤트 발생
+		document.querySelectorAll('div > div > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input')[1].dispatchEvent(new Event('input'));		//발송인 이름 입력 이벤트 발생
+		document.querySelectorAll('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input')[0].dispatchEvent(new Event('input'));		//발송인 번호 입력 이벤트 발생
 }
 /*END*/
 
@@ -115,28 +115,28 @@ async function click_submit(){
 	if(content_header_title.innerText.indexOf('출력자료등록') != -1){
 		await sleep(1);		//모달이 로딩될 때 까지 대기함
 		/*고객우편번호 Element*/
-		let postcode = document.querySelector('div > div.table-vertical > div:nth-child(1) > dl > dd > div > div.control-address-wrap__zipcode > div.el-input.el-input--medium > input');
+		let postcode = document.querySelectorAll('div > div.table-vertical > div:nth-child(1) > dl > dd > div > div.control-address-wrap__zipcode > div.el-input.el-input--medium > input')[2];
 		
 		/*주소1 Element*/
-		let juso1 = document.querySelector('div > div.table-vertical > div:nth-child(1) > dl > dd > div > div.control-address-wrap__address > div.width-40p.el-input.el-input--medium > input');
+		let juso1 = document.querySelectorAll('div > div.table-vertical > div:nth-child(1) > dl > dd > div > div.control-address-wrap__address > div.width-40p.el-input.el-input--medium > input')[1];
 		
 		/*주소2 Element*/
-		let juso2 = document.querySelector('div > div.table-vertical > div:nth-child(1) > dl > dd > div > div.control-address-wrap__address > div.width-60p.el-input.el-input--medium > input');
+		let juso2 = document.querySelectorAll('div > div.table-vertical > div:nth-child(1) > dl > dd > div > div.control-address-wrap__address > div.width-60p.el-input.el-input--medium > input')[1];
 		
 		/*고객이름 Element*/
-		let name = document.querySelector('div > div.table-vertical > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input');
+		let name = document.querySelectorAll('div > div.table-vertical > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input')[2];
 		
 		/*고객일반전화 Element*/
-		let call = document.querySelector('div > div.table-vertical > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input');
+		let call = document.querySelectorAll('div > div.table-vertical > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input')[1];
 		
 		/*고객휴대전화번호 Element*/
-		let phone = document.querySelector('div > div.table-vertical > div:nth-child(3) > dl:nth-child(2) > dd > div > input');
+		let phone = document.querySelectorAll('div > div.table-vertical > div:nth-child(3) > dl:nth-child(2) > dd > div > input')[1];
 		
 		/*발송인 이름 Element*/
-		let sender_name = document.querySelector('div > div > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input');
+		let sender_name = document.querySelectorAll('div > div > div:nth-child(2) > dl:nth-child(1) > dd > div > div > input')[1];
 		
 		/*발송인 전화번호 Element*/
-		let sender_phone = document.querySelector('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input');
+		let sender_phone = document.querySelectorAll('div > div > div:nth-child(3) > dl:nth-child(1) > dd > div > div > input')[0];
 		
 		/*출고물품 Element*/
 		let item_name_input = document.querySelector('div > div > div:nth-child(1) > dl:nth-child(1) > dd > div > input');
@@ -222,13 +222,9 @@ async function click_submit(){
 		}
 		
 		/* 저장->확인 버튼을 클릭시 고객정보와 발송인을 자동으로 채우도록 이벤트를 등록함*/
-		let confirm_btn_listen = document.querySelector("body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(2)");				//저장 확인버튼 Element
-		let cancle_btn_listen = document.querySelector("body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(1)");			//저장 취소버튼 Element
+		let confirm_btn_listen = document.querySelectorAll("body > div.el-message-box__wrapper > div > div.el-message-box__btns > button")[0];				//확인버튼 Element
 		if(confirm_btn_listen != null) confirm_btn_listen.addEventListener('click', function(event){
 			__export_count = __export_count + 1;	//출고번호 +1
-			writeProduct();
-		});
-		if(cancle_btn_listen != null) cancle_btn_listen.addEventListener('click', function(event){
 			writeProduct();
 		});
 		/*END*/
@@ -398,24 +394,18 @@ function domReady() {
 }
 /*END*/
 
-//백그라운드에서 버전체크 및 업데이트 알림
-//async function background_run(){
-//	while(true){
-//		await update_check();
-//		await sleep(10);	//10초마다 실행
-//	}
-//}
-
 /*서버에서 업데이트를 체크하는 함수*/
-//async function update_check(){
-//	let update_check_url = 'https://raw.githubusercontent.com/bsy0317/Hanjin-Utility/main/util.js';
-//	let update_check_version = await fetch(update_check_url).then(response => response.text()).then(text => text.match(/var version = "(.*?)";/)[1]);
-//	if(version != update_check_version && version_check_ignore != true){ //버전이 다른경우&&업데이트 무시가 아닌경우
-//		this.$nuxt.$alert("'한진 유틸리티' 프로그램의 업데이트가 존재합니다.",'Update Notice');
-//		this.$nuxt.$alert("브라우저를 재시작하면 변경사항이 적용됩니다.",'Update Notice');
-//		version_check_ignore = true;	//업데이트 무시
-//	}
-//}
+async function update_check(){
+	while(true){
+		let update_check_url = 'https://raw.githubusercontent.com/bsy0317/Hanjin-Utility/main/util.js';
+		let update_check_version = await fetch(update_check_url).then(response => response.text()).then(text => text.match(/var version = "(.*?)";/)[1]);
+		if(version != update_check_version && version_check_ignore != true){ //버전이 다른경우&&업데이트 무시가 아닌경우
+			this.$nuxt.$alert("'한진 유틸리티' 프로그램의 업데이트가 존재합니다. 브라우저를 재시작하면 변경사항이 적용됩니다.",update_check_version);
+			version_check_ignore = true;	//업데이트 무시
+		}
+		await sleep(10);
+	}
+}
 /*END*/
 
 /*메인함수*/
@@ -427,4 +417,4 @@ function main(){
 
 main(); //코드 실행
 
-//background_run();	//백그라운드에서 버전체크 및 업데이트 알림
+update_check();	//백그라운드에서 버전체크 및 업데이트 알림
